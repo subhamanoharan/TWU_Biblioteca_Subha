@@ -1,19 +1,20 @@
 package com.twu.biblioteca;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 //Represent a library with a collection of books
 public class Library {
     List<Book> books = new ArrayList<Book>();
     List<Customer> customers = new ArrayList<Customer>();
+    HashMap<Book,Customer> ledger;
     String name;
 
     Library(String name) {
         this.name = name;
+        ledger = new HashMap<Book, Customer>();
     }
 
     public  void displayWelcomeMessage() {
@@ -42,6 +43,7 @@ public class Library {
             System.out.format("%-70s%-70s%-70s\n",
                     "Title", "Author", "Year Of Publishing");
             for (Book book : books) {
+                if(book.getAvailability() == true)
                 book.printDetails();
             }
         }
@@ -67,24 +69,46 @@ public class Library {
         return null;
     }
 
-    public void checkOutBook(String title) {
-        Book b = getBookByTitle(title);
-        if( b == null )
-            System.out.println( "Unsuccessful checkOut:" + title + " doesn't exist!Check your spelling!");
-        else
-            b.checkOut();
+
+    public Customer searchCustomerByLibraryNumber(String libraryNumber)
+    {
+        for (Customer customer : customers)
+        {
+            if ( (customer.getLibraryNumber()).equals(libraryNumber) )
+                return customer;
+        }
+        return null;
     }
 
-    public void returnBook(String title) {
+    public void checkOutBook( Customer customer, String title) {
+        Book book = getBookByTitle(title);
+        if (book == null)
+            System.out.println("Unsuccessful checkOut:" + title + " doesn't exist!Check your spelling!");
+        else {
+            if( book.checkOut()) {
+                ledger.put(book,customer);
+            }
+        }
+    }
+
+    public void returnBook(String title,Customer customer) {
         Book b = getBookByTitle(title);
+        Customer ledgerEntry = ledger.get(b);
         if( b == null)
             System.out.println ("That is not a valid book to return.");
-        else
-        b.returnBack();
+        else {
+            if( ledgerEntry!=null && ledgerEntry.equals(customer) && b.returnBack()) {
+                ledger.remove(b);
+            }
+            else
+                System.out.println("That is not a valid book to return.");
+
+        }
     }
 
     public void addCustomer(Customer newCustomer)
     {
         customers.add(newCustomer);
     }
+
 }

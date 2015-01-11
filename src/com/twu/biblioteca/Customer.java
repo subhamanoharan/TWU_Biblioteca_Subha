@@ -17,8 +17,18 @@ public class Customer {
         this.password = password;
     }
 
-    public void checkOutBook()
+    public boolean equals(Customer customer)
     {
+        if ( name == customer.name &&
+                libraryNumber == customer.libraryNumber &&
+                email == customer.email &&
+                phoneNumber == customer.phoneNumber &&
+                password == customer.password)
+            return true;
+        return false;
+    }
 
+    public String getLibraryNumber() {
+        return libraryNumber;
     }
 }

@@ -8,8 +8,7 @@ public class Book {
     private int yearPublished;
     private boolean availabilty;
 
-    Book(String title, String author, int yearPublished)
-    {
+    Book(String title, String author, int yearPublished) {
         this.title = title;
         this.author = author;
         this.yearPublished = yearPublished;
@@ -25,28 +24,32 @@ public class Book {
         return title;
     }
 
-    public void checkOut() {
-        if ( availabilty == true )
-        {
+    public boolean checkOut() {
+        if (availabilty == true) {
             availabilty = false;
             System.out.println("Successful Checkout!");
             System.out.println("Enjoy the book");
-        }
-        else
-        {
+            return true;
+        } else {
             System.out.println("Unsuccessful Checkout!");
-            System.out.println(title+" is not available currently!");
-
+            System.out.println(title + " is not available currently!");
+            return false;
         }
+
     }
 
-    public void returnBack() {
-        if(availabilty)
+    public boolean returnBack() {
+        if (availabilty)
             System.out.println("That is not a valid book to return.");
-        else
-        {
+        else {
             availabilty = true;
             System.out.println("Thank you for returning the book.");
+            return true;
         }
+        return false;
+    }
+
+    public boolean getAvailability() {
+        return availabilty;
     }
 }

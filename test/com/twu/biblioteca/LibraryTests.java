@@ -29,7 +29,7 @@ public class LibraryTests {
     }
 
     @Test
-    public void shouldprintBooksUnAvailable() {
+    public void shouldprintWhenBooksUnAvailable() {
         Library biblioteca = new Library("Biblioteca");
         biblioteca.displayListOfBooks();
         assertEquals("NO BOOKS CURRENTLY AVAILABLE FOR CHECKOUT\n", outContent.toString());
@@ -71,30 +71,49 @@ public class LibraryTests {
     @Test
     public void shouldValidateSuccessfulCheckout() {
         Library biblioteca = new Library("Biblioteca");
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
         biblioteca.addBook(book);
-        biblioteca.checkOutBook("Head First Java");
+        biblioteca.checkOutBook(customer, "Head First Java");
         assertEquals("Successful Checkout!\nEnjoy the book\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldValidateListAfterCheckOut() throws IOException {
+        Library biblioteca = new Library( "Biblioteca");
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
+        biblioteca.addBook(new Book("Head First Java", "Kerry Bates", 1990));
+        biblioteca.addBook(new Book("Harry Potter and the Philosopher's stone", "J.K.Rowling", 2001));
+        biblioteca.addBook(new Book("Java", "Kerry Bates", 1990));
+        biblioteca.checkOutBook(customer,"Java");
+        biblioteca.displayListOfBooks();
+        verifyOutput(outContent.toString(), "outPutAfterCheckOut");
     }
 
     @Test
     public void shouldValidateUnSuccessfulTypoCheckout() {
         Library biblioteca = new Library("Biblioteca");
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
         biblioteca.addBook(book);
         String title = "Head First";
-        biblioteca.checkOutBook(title);
+        biblioteca.checkOutBook(customer,title);
         assertEquals("Unsuccessful checkOut:" + title + " doesn't exist!Check your spelling!\n", outContent.toString());
     }
 
     @Test
     public void shouldValidateUnSuccessfulUnavailableCheckout() {
         Library biblioteca = new Library("Biblioteca");
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
         biblioteca.addBook(book);
         String title = "Head First Java";
-        biblioteca.checkOutBook(title);
-        biblioteca.checkOutBook(title);
+        biblioteca.checkOutBook(customer,title);
+        biblioteca.checkOutBook(customer,title);
         assertEquals("Successful Checkout!\n" +
                 "Enjoy the book\nUnsuccessful Checkout!\n" + title + " is not available currently!\n", outContent.toString());
     }
@@ -104,10 +123,12 @@ public class LibraryTests {
     {
         Library biblioteca = new Library("Biblioteca");
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
         biblioteca.addBook(book);
         String title = "Head First Java";
-        biblioteca.checkOutBook(title);
-        biblioteca.returnBook(title);
+        biblioteca.checkOutBook(customer,title);
+        biblioteca.returnBook(title,customer);
         assertEquals("Successful Checkout!\n" +
                 "Enjoy the book\nThank you for returning the book.\n", outContent.toString());
     }
@@ -117,9 +138,11 @@ public class LibraryTests {
     {
         Library biblioteca = new Library("Biblioteca");
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
         biblioteca.addBook(book);
         String title = "Head First Java";
-        biblioteca.returnBook(title);
+        biblioteca.returnBook(title, customer);
         assertEquals("That is not a valid book to return.\n", outContent.toString());
     }
 
@@ -128,9 +151,11 @@ public class LibraryTests {
     {
         Library biblioteca = new Library("Biblioteca");
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        Customer customer = new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(customer);
         biblioteca.addBook(book);
         String title = "Head First";
-        biblioteca.returnBook(title);
+        biblioteca.returnBook(title,customer);
         assertEquals("That is not a valid book to return.\n", outContent.toString());
     }
 

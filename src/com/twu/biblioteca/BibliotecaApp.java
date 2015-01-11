@@ -16,10 +16,7 @@ public class BibliotecaApp {
         return Integer.parseInt(br.readLine());
     }
 
-    public static void main(String[] args) throws IOException {
-        biblioteca.addBook(new Book("Head First Java", "Kerry Bates", 1990));
-        biblioteca.addBook(new Book("Harry Potter and the Philosopher's stone", "J.K.Rowling", 2001));
-
+    public static void runConsole() throws IOException {
         biblioteca.displayWelcomeMessage();
         while(true) {
             int choice = displayMenuAndGetUserChoice();
@@ -27,6 +24,11 @@ public class BibliotecaApp {
             if (choice == 2 )
                 break;
         }
+    }
+    public static void main(String[] args) throws IOException {
+        biblioteca.addBook(new Book("Head First Java", "Kerry Bates", 1990));
+        biblioteca.addBook(new Book("Harry Potter and the Philosopher's stone", "J.K.Rowling", 2001));
+        runConsole();
     }
 
 }
