@@ -159,7 +159,83 @@ public class LibraryTests {
         assertEquals("That is not a valid book to return.\n", outContent.toString());
     }
 
+    @Test
+    public void checkAdditionOfCustomers()
+    {
+        Library biblioteca=new Library("Biblioteca");
+        Customer addedCustomer =new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(addedCustomer);
+        Customer searchResult = biblioteca.searchCustomerByLibraryNumber("123-1234");
+        assertTrue(searchResult.equals(addedCustomer));
+    }
+    @Test
+    public void checkInvalidCustomerSearch()
+    {
+        Library biblioteca=new Library("Biblioteca");
+        Customer addedCustomer =new Customer("John","john@gmail.com","9123456780","123-1234","xxxx");
+        biblioteca.addCustomer(addedCustomer);
+        Customer searchResult = biblioteca.searchCustomerByLibraryNumber("123-1244");
+        assertFalse(addedCustomer.equals(searchResult));
+    }
 
+
+    @Test
+    public void checkOptionDisplayBooks() throws IOException {
+        Library biblioteca=new Library("Biblioteca");
+        biblioteca.performActionChosen(1);
+        assertEquals("NO BOOKS CURRENTLY AVAILABLE FOR CHECKOUT\n", outContent.toString());
+    }
+
+
+    @Test
+    public void checkOptionQuit() throws IOException {
+        Library biblioteca=new Library("Biblioteca");
+        biblioteca.performActionChosen(2);
+        assertEquals("Thanks For Visting Us!!\n", outContent.toString());
+    }
+
+    @Test
+    public void checkInvalidOption() throws IOException {
+        Library biblioteca=new Library("Biblioteca");
+        biblioteca.performActionChosen(15);
+        assertEquals("Invalid Menu option\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldRetrieveBookByTitle()
+    {
+        Library biblioteca=new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        assertTrue(book.equals(biblioteca.getBookByTitle("Head First Java")));
+    }
+
+    @Test
+    public void shouldNotRetrieveBookByInvalidTitle()
+    {
+        Library biblioteca=new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        assertFalse(book.equals(biblioteca.getBookByTitle("Head Java")));
+    }
+
+    @Test
+    public void shouldCheckPresenceOfAvailableBook()
+    {
+        Library biblioteca=new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        assertTrue(biblioteca.isPresent(biblioteca.getBookByTitle("Head First Java")));
+    }
+
+    @Test
+    public void shouldCheckAbsenceOfUnavailableBook()
+    {
+        Library biblioteca=new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        assertFalse(biblioteca.isPresent(new Book("Head Firs", "Kerry Bates", 1990)));
+    }
 
     /*@Test
     public void out() {

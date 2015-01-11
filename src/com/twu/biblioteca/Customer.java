@@ -19,6 +19,8 @@ public class Customer {
 
     public boolean equals(Customer customer)
     {
+        if (customer == null)
+            return false;
         if ( name == customer.name &&
                 libraryNumber == customer.libraryNumber &&
                 email == customer.email &&

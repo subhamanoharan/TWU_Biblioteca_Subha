@@ -19,28 +19,6 @@ public class BibliotecaAppTests {
         System.setErr(new PrintStream(errContent));
     }
 
-    @Test
-    public void checkOptionDisplayBooks() throws IOException {
-        Library biblioteca=new Library("Biblioteca");
-        biblioteca.performActionChosen(1);
-        assertEquals("NO BOOKS CURRENTLY AVAILABLE FOR CHECKOUT\n", outContent.toString());
-    }
-
-
-    @Test
-    public void checkOptionQuit() throws IOException {
-        Library biblioteca=new Library("Biblioteca");
-        biblioteca.performActionChosen(2);
-        assertEquals("Thanks For Visting Us!!\n", outContent.toString());
-    }
-
-    @Test
-    public void checkInvalidOption() throws IOException {
-        Library biblioteca=new Library("Biblioteca");
-        biblioteca.performActionChosen(15);
-        assertEquals("Invalid Menu option\n", outContent.toString());
-    }
-
     @After
     public void cleanUpStreams() {
         System.setOut(null);

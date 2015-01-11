@@ -25,7 +25,7 @@ public class Library {
         switch(option)
         {
             case 1:
-                BibliotecaApp.biblioteca.displayListOfBooks();
+                displayListOfBooks();
                 break;
             case 2:
                 System.out.println("Thanks For Visting Us!!");
