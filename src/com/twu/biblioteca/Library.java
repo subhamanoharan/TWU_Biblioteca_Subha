@@ -41,4 +41,22 @@ public class Library {
             return true;
         return false;
     }
+
+    public Book getBookByTitle(String title)
+    {
+        for (Book b : books)
+        {
+            if ( (b.getTitle()).equals(title) )
+                return b;
+        }
+        return null;
+    }
+
+    public void checkOutBook(String title) {
+        Book b = getBookByTitle(title);
+        if( b == null )
+            System.out.println( "Unsuccessful checkOut:" + title + " doesn't exist!Check your spelling!");
+        else
+            b.checkOut();
+    }
 }

@@ -22,14 +22,14 @@ public class LibraryTests {
     }
 
     @Test
-    public void shouldDisplayWelcomeMessage(){
+    public void shouldDisplayWelcomeMessage() {
         Library biblioteca = new Library("Biblioteca");
         biblioteca.displayWelcomeMessage();
         assertEquals("Welcome to Biblioteca!!\n", outContent.toString());
     }
 
     @Test
-    public void shouldprintBooksUnAvailable()  {
+    public void shouldprintBooksUnAvailable() {
         Library biblioteca = new Library("Biblioteca");
         biblioteca.displayListOfBooks();
         assertEquals("NO BOOKS CURRENTLY AVAILABLE FOR CHECKOUT\n", outContent.toString());
@@ -45,13 +45,61 @@ public class LibraryTests {
     }
 
     @Test
-    public void shouldValidateNewBookAddition()
-    {
+    public void shouldValidateNewBookAddition() {
         Library biblioteca = new Library("Biblioteca");
         Book book = new Book("Head First Java", "Kerry Bates", 1990);
         biblioteca.addBook(book);
         assertTrue(biblioteca.isPresent(book));
     }
+
+    @Test
+    public void shouldGetExistingBookByTitle() {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        assertEquals(biblioteca.getBookByTitle("Head First Java"), book);
+    }
+
+    @Test
+    public void shouldSearchForNonExistingBookByTitle() {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        assertEquals(biblioteca.getBookByTitle("Head "), null);
+    }
+
+    @Test
+    public void shouldValidateSuccessfulCheckout() {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        biblioteca.checkOutBook("Head First Java");
+        assertEquals("Successful Checkout!\nEnjoy the book\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldValidateUnSuccessfulTypoCheckout() {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        String title = "Head First";
+        biblioteca.checkOutBook(title);
+        assertEquals("Unsuccessful checkOut:" + title + " doesn't exist!Check your spelling!\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldValidateUnSuccessfulUnavailableCheckout() {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        String title = "Head First Java";
+        biblioteca.checkOutBook(title);
+        biblioteca.checkOutBook(title);
+        assertEquals("Successful Checkout!\n" +
+                "Enjoy the book\nUnsuccessful Checkout!\n" + title + " is not available currently!\n", outContent.toString());
+    }
+
+
 
     /*@Test
     public void out() {

@@ -6,17 +6,38 @@ package com.twu.biblioteca;
 public class Book {
     private String title, author;
     private int yearPublished;
+    private boolean availabilty;
 
     Book(String title, String author, int yearPublished)
     {
-        this.title=title;
-        this.author=author;
-        this.yearPublished=yearPublished;
+        this.title = title;
+        this.author = author;
+        this.yearPublished = yearPublished;
+        this.availabilty = true;
     }
 
     public void printDetails() {
         System.out.format("%-70s%-70s%-70s\n",
                 title, author, yearPublished);
-        // System.out.print(title + "                 " + author + "                      " + yearPublished + "\n");
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void checkOut() {
+        if ( availabilty == true )
+        {
+            availabilty = false;
+            System.out.println("Successful Checkout!");
+            System.out.println("Enjoy the book");
+        }
+        else
+        {
+            System.out.println("Unsuccessful Checkout!");
+            System.out.println(title+" is not available currently!");
+
+        }
+
     }
 }
