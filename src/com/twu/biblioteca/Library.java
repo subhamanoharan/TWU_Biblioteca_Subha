@@ -16,8 +16,22 @@ public class Library {
         this.name = name;
     }
 
-    public static void displayWelcomeMessage() {
+    public  void displayWelcomeMessage() {
         System.out.println("Welcome to Biblioteca!!");
+    }
+
+    public void performActionChosen(int option) throws IOException {
+        switch(option)
+        {
+            case 1:
+                BibliotecaApp.biblioteca.displayListOfBooks();
+                break;
+            case 2:
+                System.out.println("Thanks For Visting Us!!");
+                break;
+            default:
+                System.out.println("Invalid Menu option");
+        }
     }
 
     public void displayListOfBooks() {
@@ -67,5 +81,10 @@ public class Library {
             System.out.println ("That is not a valid book to return.");
         else
         b.returnBack();
+    }
+
+    public void addCustomer(Customer newCustomer)
+    {
+        customers.add(newCustomer);
     }
 }

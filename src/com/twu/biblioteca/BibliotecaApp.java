@@ -16,20 +16,6 @@ public class BibliotecaApp {
         return Integer.parseInt(br.readLine());
     }
 
-    public static void performActionChosen(int option) throws IOException {
-        switch(option)
-        {
-            case 1:
-                biblioteca.displayListOfBooks();
-                break;
-            case 2:
-                System.out.println("Thanks For Visting Us!!");
-                break;
-            default:
-                System.out.println("Invalid Menu option");
-        }
-    }
-
     public static void main(String[] args) throws IOException {
         biblioteca.addBook(new Book("Head First Java", "Kerry Bates", 1990));
         biblioteca.addBook(new Book("Harry Potter and the Philosopher's stone", "J.K.Rowling", 2001));
@@ -37,7 +23,7 @@ public class BibliotecaApp {
         biblioteca.displayWelcomeMessage();
         while(true) {
             int choice = displayMenuAndGetUserChoice();
-            performActionChosen(choice);
+            biblioteca.performActionChosen(choice);
             if (choice == 2 )
                 break;
         }
