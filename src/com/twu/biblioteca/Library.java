@@ -9,6 +9,7 @@ import java.util.List;
 //Represent a library with a collection of books
 public class Library {
     List<Book> books = new ArrayList<Book>();
+    List<Customer> customers = new ArrayList<Customer>();
     String name;
 
     Library(String name) {
@@ -58,5 +59,13 @@ public class Library {
             System.out.println( "Unsuccessful checkOut:" + title + " doesn't exist!Check your spelling!");
         else
             b.checkOut();
+    }
+
+    public void returnBook(String title) {
+        Book b = getBookByTitle(title);
+        if( b == null)
+            System.out.println ("That is not a valid book to return.");
+        else
+        b.returnBack();
     }
 }

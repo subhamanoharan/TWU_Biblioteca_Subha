@@ -99,6 +99,41 @@ public class LibraryTests {
                 "Enjoy the book\nUnsuccessful Checkout!\n" + title + " is not available currently!\n", outContent.toString());
     }
 
+    @Test
+    public void shouldSuccessfullyReturnBook()
+    {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        String title = "Head First Java";
+        biblioteca.checkOutBook(title);
+        biblioteca.returnBook(title);
+        assertEquals("Successful Checkout!\n" +
+                "Enjoy the book\nThank you for returning the book.\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldIndicateInvalidReturnBook()
+    {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        String title = "Head First Java";
+        biblioteca.returnBook(title);
+        assertEquals("That is not a valid book to return.\n", outContent.toString());
+    }
+
+    @Test
+    public void shouldIndicateTypoReturnBook()
+    {
+        Library biblioteca = new Library("Biblioteca");
+        Book book = new Book("Head First Java", "Kerry Bates", 1990);
+        biblioteca.addBook(book);
+        String title = "Head First";
+        biblioteca.returnBook(title);
+        assertEquals("That is not a valid book to return.\n", outContent.toString());
+    }
+
 
 
     /*@Test

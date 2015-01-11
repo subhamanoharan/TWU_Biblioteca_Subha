@@ -38,6 +38,15 @@ public class Book {
             System.out.println(title+" is not available currently!");
 
         }
+    }
 
+    public void returnBack() {
+        if(availabilty)
+            System.out.println("That is not a valid book to return.");
+        else
+        {
+            availabilty = true;
+            System.out.println("Thank you for returning the book.");
+        }
     }
 }

@@ -10,7 +10,7 @@ public class BibliotecaApp {
 
     public static int displayMenuAndGetUserChoice() throws IOException {
 
-        System.out.println("1)Display the list of available books");
+        System.out.println("\n1)Display the list of available books");
         System.out.println("2)Quit");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         return Integer.parseInt(br.readLine());
